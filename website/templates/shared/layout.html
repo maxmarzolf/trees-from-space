@@ -6,11 +6,12 @@
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/css/layout.css"/>
+    <link href="{{ url_for('static', filename='css/layout.css') }}" rel="stylesheet">
 </head>
-<body style="background: black;">
-<nav class="navbar navbar-expand-sm" style="background: black;">
-    <a href="/" class="navbar-left"><img src="../static/images/logo.png" alt="Trees from Space logo"></a>
+<body>
+<nav class="navbar navbar-expand-sm">
+    <a href="/" class="navbar-left"><img src="{{ url_for('static', filename='images/logo.png') }}"
+                                         alt="Trees from Space logo"></a>
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
             <a class="nav-link" href="/product">Product</a>

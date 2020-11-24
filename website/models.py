@@ -9,4 +9,4 @@ class Order(db.Model):
     name = db.Column(db.string(150), nullable=False)
     email = db.Column(db.string(150), nullable=False)
     order = db.Column(db.string(150), nullable=False)
-    total = db.Column(db.Numeric, nullable=False, precision(8, 4))
+    total = db.Column(db.Numeric(precision(8, 4)), nullable=False)

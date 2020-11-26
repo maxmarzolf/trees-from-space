@@ -29,7 +29,7 @@ def create_app():
         from website.payment.payment_routes import payment_bp
         app.register_blueprint(payment_bp)
 
-        # only called if the tables have not been created yet
+        # only called if the tables have not been created
         # db.create_all()
 
         return app

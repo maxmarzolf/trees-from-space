@@ -14,6 +14,7 @@ class Order(db.Model):
 
 class ShirtInventory(db.Model):
     __tablename__ = 'SHIRT_INVENTORY'
+    id = db.Column(db.Integer(), primary_key=True)
     small = db.Column(db.Integer())
     medium = db.Column(db.Integer())
     large = db.Column(db.Integer())
@@ -21,4 +22,5 @@ class ShirtInventory(db.Model):
 
 class DecalInventory(db.Model):
     __tablename__ = 'DECAL_INVENTORY'
+    id = db.Column(db.Integer(), primary_key=True)
     quantity = db.Column(db.Integer())

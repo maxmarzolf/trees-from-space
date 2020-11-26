@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
+
 db = SQLAlchemy()
 migrate = Migrate()
 
@@ -25,5 +26,7 @@ def create_app():
 
         from website.payment.payment_routes import payment_bp
         app.register_blueprint(payment_bp)
+
+        db.create_all()
 
         return app

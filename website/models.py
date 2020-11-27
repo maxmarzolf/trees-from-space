@@ -5,22 +5,23 @@ from datetime import datetime
 class Order(db.Model):
     __tablename__ = 'ORDER'
     id = db.Column(db.Integer(), primary_key=True)
-    datetime = db.Column(db.DateTime(), nullable=False, default=datetime.now)
+    created = db.Column(db.DateTime(), nullable=False, default=datetime.now)
     name = db.Column(db.String(150), nullable=False)
     email = db.Column(db.String(150), nullable=False)
-    order = db.Column(db.String(150), nullable=False)
+    description = db.Column(db.String(150), nullable=False)
     total = db.Column(db.Numeric(8, 4), nullable=False)
 
 
-class ShirtInventory(db.Model):
-    __tablename__ = 'SHIRT_INVENTORY'
-    id = db.Column(db.Integer(), primary_key=True)
-    small = db.Column(db.Integer())
-    medium = db.Column(db.Integer())
-    large = db.Column(db.Integer())
-
-
-class DecalInventory(db.Model):
-    __tablename__ = 'DECAL_INVENTORY'
-    id = db.Column(db.Integer(), primary_key=True)
-    quantity = db.Column(db.Integer())
+class Product(db.Model):
+    __tablename__ = 'PRODUCT'
+    name = db.Column(db.String(150), primary_key=True)
+    description = db.Column(db.String(150), nullable=False)
+    inventory = db.Column(db.Enum(
+        decals=0,
+        small=0,
+        medium=0,
+        large=0
+    ), nullable=False)
+    sizes = db.Column(db.String(25), nullable=True)
+    price = db.Column(db.Numeric(2, 2), nullable=False)
+    image = db.Column(db.BLOB, nullable=True)

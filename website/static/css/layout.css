@@ -13,3 +13,10 @@ a {
 a:hover {
     color: #79fd94 !important;
 }
+
+p {
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}

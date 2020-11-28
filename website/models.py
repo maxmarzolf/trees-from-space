@@ -24,4 +24,4 @@ class Product(db.Model):
     ), nullable=False)
     sizes = db.Column(db.String(25), nullable=True)
     price = db.Column(db.Numeric(2, 2), nullable=False)
-    image = db.Column(db.VARCHAR, nullable=True)
+    image = db.Column(db.BLOB, nullable=True)

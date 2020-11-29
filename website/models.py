@@ -1,5 +1,12 @@
 from website import db
 from datetime import datetime
+import enum
+
+
+class ShirtSizes(enum.Enum):
+    Small = 1
+    Medium = 2
+    Large = 3
 
 
 class Order(db.Model):
@@ -16,12 +23,6 @@ class Product(db.Model):
     __tablename__ = 'PRODUCT'
     name = db.Column(db.String(150), primary_key=True)
     description = db.Column(db.String(150), nullable=False)
-    inventory = db.Column(db.Enum(
-        decals=0,
-        small=0,
-        medium=0,
-        large=0
-    ), nullable=False)
-    sizes = db.Column(db.String(25), nullable=True)
+    size = db.Column(db.Enum(ShirtSizes), nullable=True)
     price = db.Column(db.Numeric(2, 2), nullable=False)
     image = db.Column(db.VARCHAR, nullable=True)

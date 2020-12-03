@@ -14,11 +14,13 @@ body {
     color: #79fd94;
 }
 
-#mission {
+#about {
     color: white;
     position: absolute;
     left: 50%;
     top: 50%;
+    font-size: 18pt;
+    transform: translateX(-50%) translateY(-50%);
 }
 
 footer {

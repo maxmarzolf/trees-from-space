@@ -1,7 +1,7 @@
 from flask import render_template
-from website.mission import mission_bp
+from website.mission import about_bp
 
 
-@mission_bp.route('/mission')
+@about_bp.route('/about')
 def land_here():
-    return render_template('mission/mission.html')
+    return render_template('about/about.html')

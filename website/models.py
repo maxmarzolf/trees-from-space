@@ -21,7 +21,7 @@ class Order(db.Model):
 
 class Product(db.Model):
     __tablename__ = 'PRODUCT'
-    name = db.Column(db.String(150), primary_key=True)
+    id = db.Column(db.Integer(), primary_key=True)
     description = db.Column(db.String(150), nullable=False)
     size = db.Column(db.Enum(ShirtSizes), nullable=True)
     price = db.Column(db.Numeric(2, 2), nullable=False)

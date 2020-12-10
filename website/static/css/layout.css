@@ -31,7 +31,21 @@ footer {
 
 #copyright {
     color: white;
-    float:right;
+    float: right;
     font-size: 8pt;
     padding-right: 18pt;
+}
+
+#purchase-button {
+    position: absolute;
+    top: 75%;
+    right: 35%;
+    color: white;
+    background-color: black;
+    border-radius: 4pt
+}
+
+#purchase-button:hover {
+    color: #79fd94;
+    border-color: #79fd94;
 }

@@ -1,16 +1,16 @@
-from website.payment import payment_bp
+from website.payment import payment
 from config import stripe_keys
 from flask import jsonify, render_template, request
 import stripe
 
 
-@payment_bp.route("/config")
+@payment.route("/config")
 def get_publishable_key():
     stripe_config = {"publicKey": stripe_keys["publishable_key"]}
     return jsonify(stripe_config)
 
 
-@payment_bp.route("/create-checkout-session")
+@payment.route("/create-checkout-session")
 def create_checkout_session():
     domain_url = "http://localhost:5000/"
     stripe.api_key = stripe_keys["secret_key"]
@@ -44,17 +44,17 @@ def create_checkout_session():
         return jsonify(error=str(e)), 403
 
 
-@payment_bp.route("/success")
+@payment.route("/success")
 def success():
     return render_template("payment/success.html")
 
 
-@payment_bp.route("/cancelled")
+@payment.route("/cancelled")
 def cancelled():
     return render_template("payment/cancelled.html")
 
 
-@payment_bp.route("/webhook", methods=["POST"])
+@payment.route("/webhook", methods=["POST"])
 def stripe_webhook():
     payload = request.get_data(as_text=True)
     sig_header = request.headers.get("Stripe-Signature")

@@ -49,3 +49,23 @@ footer {
     color: #79fd94;
     border-color: #79fd94;
 }
+
+#payment-cancelled {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: white;
+    font-size: 18pt;
+    transform: translateX(-50%) translateY(-50%);
+
+}
+
+#payment-success {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: white;
+    font-size: 18pt;
+    transform: translateX(-50%) translateY(-50%);
+
+}

@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from website.home.home_routes import home
-from website.about.about import about
+from website.about.about_routes import about
 from website.payment.payment_routes import payment
 
 db = SQLAlchemy()

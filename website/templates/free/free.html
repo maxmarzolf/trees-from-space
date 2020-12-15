@@ -1,0 +1,8 @@
+{% extends 'shared/layout.html' %}
+{% block title %} Free {% endblock %}
+{% block content %}
+    <div class="decal">
+        <img src="{{ url_for('static', filename='images/decal.jpg') }}"
+             alt="Trees from Space decal">
+    </div>
+{% endblock %}

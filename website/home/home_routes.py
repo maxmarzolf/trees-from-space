@@ -3,5 +3,5 @@ from website.home import home
 
 
 @home.route("/")
-def land_here():
+def initialize():
     return render_template("home/home.html")

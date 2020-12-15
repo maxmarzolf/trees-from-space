@@ -3,5 +3,5 @@ from website.about import about
 
 
 @about.route('/about')
-def land_here():
+def initialize():
     return render_template('about/about.html')

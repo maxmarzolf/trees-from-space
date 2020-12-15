@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from website.home.home_routes import home
 from website.about.about_routes import about
 from website.payment.payment_routes import payment
+from website.free.free_routes import free
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -20,5 +21,6 @@ def create_app():
         app.register_blueprint(home)
         app.register_blueprint(about)
         app.register_blueprint(payment)
+        app.register_blueprint(free)
         db.create_all()
         return app

@@ -1,9 +1,14 @@
 {% extends 'shared/layout.html' %}
 {% block title %} Trees from Space {% endblock %}
 {% block content %}
-  <section class="section">
-    <div class="container">
-      <button class="button is-primary" id="purchase-button">Command Swag</button>
+{#    <section class="section">#}
+{#        <div class="container">#}
+{#            <button class="button is-primary" id="purchase-button">Command Swag</button>#}
+{#        </div>#}
+{#    </section>#}
+    <div class="shirt">
+        <img src="{{ url_for('static', filename='images/shirt.jpg') }}"
+             alt="Trees from Space shirt">
+    <button class="button is-primary" id="purchase-button">Command Swag</button>
     </div>
-  </section>
 {% endblock %}

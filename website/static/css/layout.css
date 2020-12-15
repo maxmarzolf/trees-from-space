@@ -38,11 +38,11 @@ footer {
 
 #purchase-button {
     position: absolute;
-    top: 75%;
-    right: 35%;
+    top: 30%;
     color: white;
     background-color: black;
-    border-radius: 4pt
+    border-radius: 4pt;
+    width: 35%;
 }
 
 #purchase-button:hover {
@@ -68,4 +68,11 @@ footer {
     font-size: 18pt;
     transform: translateX(-50%) translateY(-50%);
 
+}
+
+.shirt {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
 }

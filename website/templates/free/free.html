@@ -1,8 +1,48 @@
 {% extends 'shared/layout.html' %}
 {% block title %} Free {% endblock %}
 {% block content %}
-    <div class="decal">
-        <img src="{{ url_for('static', filename='images/decal.jpg') }}"
-             alt="Trees from Space decal">
+    <head>
+        <meta charset="utf-8"/>
+        <title data-i18n="title"></title>
+        <meta name="description" content="A demo of Stripe Payment Intents"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+        <link href="{{ url_for('static', filename='css/normalize.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/global.css') }}" rel="stylesheet">
+        <!-- Load Stripe.js on your website. -->
+        <script src="https://js.stripe.com/v3/"></script>
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+        <!-- Load translation files and libraries. -->
+        <script src="https://unpkg.com/i18next/i18next.js"></script>
+        <script src="https://unpkg.com/i18next-xhr-backend/i18nextXHRBackend.js"></script>
+        <script src="https://unpkg.com/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.js"></script>
+        <script src="{{ url_for('static', filename='js/translation.js') }}"></script>
+    </head>
+    <body>
+    <div class="sr-root">
+        <div class="sr-main">
+            <section class="container">
+                <div>
+                    <h3 data-i18n="Free Decals"></h3>
+                    <div class="pasha-image">
+                        <img src="{{ url_for('static', filename='images/decal.jpg') }}"
+                             alt="Trees from Space decal">
+                    </div>
+                </div>
+                <div class="quantity-setter">
+                    <button class="increment-btn" id="subtract" disabled>-</button>
+                    <input type="number" id="quantity-input" min="1" value="1"/>
+                    <button class="increment-btn" id="add">+</button>
+                </div>
+                <button
+                        id="submit"
+                        data-i18n="Add to Cart"
+                        i18n-options='{ "total": "0" }'
+                ></button>
+                <p></p> {# TODO: use CSS for padding #}
+            </section>
+            <div id="error-message"></div>
+        </div>
     </div>
+    </body>
 {% endblock %}

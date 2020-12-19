@@ -1,83 +1,114 @@
-from website.payment import payment
-from config import stripe_keys
-from flask import jsonify, render_template, request
 import stripe
 import json
+import os
+from website.payment import payment
+from flask import Flask, render_template, jsonify, request, send_from_directory
+from dotenv import load_dotenv, find_dotenv
+
+# Setup Stripe python client library.
+load_dotenv(find_dotenv())
+
+# Ensure environment variables are set.
+price = os.getenv('PRICE')
+if price is None or price == 'price_12345' or price == '':
+    print('You must set a Price ID in .env. Please see the README.')
+    exit(0)
 
 
-@payment.route("/config")
+stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
+stripe.api_version = os.getenv('STRIPE_API_VERSION')
+
+
+@payment.route('/', methods=['GET'])
+def get_example():
+    return render_template('index.html')
+
+
+@payment.route('/config', methods=['GET'])
 def get_publishable_key():
-    stripe_config = {"publicKey": stripe_keys["publishable_key"]}
-    return jsonify(stripe_config)
+    price = stripe.Price.retrieve(os.getenv('PRICE'))
+    return jsonify({
+      'publicKey': os.getenv('STRIPE_PUBLISHABLE_KEY'),
+      'unitAmount': price['unit_amount'],
+      'currency': price['currency']
+    })
+
+# Fetch the Checkout Session to display the JSON result on the success page
+@payment.route('/checkout-session', methods=['GET'])
+def get_checkout_session():
+    id = request.args.get('sessionId')
+    checkout_session = stripe.checkout.Session.retrieve(id)
+    return jsonify(checkout_session)
 
 
-@payment.route('/secret')
-def secret():
-    intent = stripe.PaymentIntent.create(
-        amount=1099,
-        currency='usd',
-        metadata={'integration_check': 'accept_a_payment'})
-    return jsonify(client_secret=intent.client_secret)
+stripe_keys = {
+    "secret_key": os.environ["STRIPE_SECRET_KEY"],
+    "publishable_key": os.environ["STRIPE_PUBLISHABLE_KEY"],
+}
+
+stripe.api_key = stripe_keys["secret_key"]
 
 
+@payment.route('/create-checkout-session', methods=['POST'])
+def create_checkout_session():
+    # data = json.loads(request.data)
+    domain_url = "http://localhost:5000/"
+    stripe.api_key = stripe_keys["secret_key"]
 
-
-
-
-
-
-
-
-@payment.route('/create-payment-intent', methods=['POST'])
-def create_payment():
     try:
-        data = json.loads(request.data)
-        intent = stripe.PaymentIntent.create(
-            amount=calculate_order_amount(data['items']),
-            currency='usd'
+        # Create new Checkout Session for the order
+        # Other optional params include:
+        # [billing_address_collection] - to display billing address details on the page
+        # [customer] - if you have an existing Stripe Customer ID
+        # [payment_intent_data] - lets capture the payment later
+        # [customer_email] - lets you prefill the email input in the form
+        # For full details see https:#stripe.com/docs/api/checkout/sessions/create
+
+        # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
+        checkout_session = stripe.checkout.Session.create(
+            success_url=domain_url +
+            "/success.html?session_id={CHECKOUT_SESSION_ID}",
+            cancel_url=domain_url + "/canceled.html",
+            payment_method_types=["card"],
+            mode="payment",
+            line_items=[
+                {
+                    "price": os.getenv('PRICE'),
+                    "quantity": 1
+                }
+            ]
         )
-        return jsonify({
-            'clientSecret': intent['client_secret']
-        })
+        return jsonify({'sessionId': checkout_session['id']})
     except Exception as e:
         return jsonify(error=str(e)), 403
 
 
-@payment.route("/payment")
-def land_here():
-    return render_template('payment/payment.html')
+@payment.route('/webhook', methods=['POST'])
+def webhook_received():
+    # You can use webhooks to receive information about asynchronous payment events.
+    # For more about our webhook events check out https://stripe.com/docs/webhooks.
+    webhook_secret = os.getenv('STRIPE_WEBHOOK_SECRET')
+    request_data = json.loads(request.data)
 
+    if webhook_secret:
+        # Retrieve the event by verifying the signature using the raw body and secret if webhook signing is configured.
+        signature = request.headers.get('stripe-signature')
+        try:
+            event = stripe.Webhook.construct_event(
+                payload=request.data, sig_header=signature, secret=webhook_secret)
+            data = event['data']
+        except Exception as e:
+            return e
+        # Get the type of webhook event sent - used to check the status of PaymentIntents.
+        event_type = event['type']
+    else:
+        data = request_data['data']
+        event_type = request_data['type']
+    data_object = data['object']
 
-@payment.route("/success")
-def success():
-    return render_template("payment/success.html")
+    print('event ' + event_type)
 
+    if event_type == 'checkout.session.completed':
+        print('🔔 Payment succeeded!')
 
-@payment.route("/cancelled")
-def cancelled():
-    return render_template("payment/cancelled.html")
-
-
-@payment.route("/webhook", methods=["POST"])
-def stripe_webhook():
-    payload = request.get_data(as_text=True)
-    sig_header = request.headers.get("Stripe-Signature")
-
-    try:
-        event = stripe.Webhook.construct_event(
-            payload, sig_header, stripe_keys["endpoint_secret"]
-        )
-
-    except ValueError as e:
-        # Invalid payload
-        return "Invalid payload", 400
-    except stripe.error.SignatureVerificationError as e:
-        # Invalid signature
-        return "Invalid signature", 400
-
-    # Handle the checkout.session.completed event
-    if event["type"] == "checkout.session.completed":
-        print("Payment was successful.")
-        # TODO: run some custom code here
-
-    return "Success", 200
+    return jsonify({'status': 'success'})

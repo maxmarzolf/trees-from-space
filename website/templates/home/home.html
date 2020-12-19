@@ -27,27 +27,22 @@
                     </div>
                 </div>
                 <div class="quantity-setter">
-                    <div class="custom-select" style="width:150px;">
-                        <select id="sizes">
-                            <option selected="selected">Select Size</option>
-                            <option>Small</option>
-                            <option>Medium</option>
-                            <option>Large</option>
+                    <div class="sizes" style="width:200px;">
+                        <select>
+                            <option value="0">Select Size</option>
+                            <option value="1">Small</option>
+                            <option value="2">Medium</option>
+                            <option value="3">Large</option>
                         </select>
                     </div>
                     <div class="divider"></div>
                     <button class="increment-btn" id="subtract" disabled>-</button>
                     <input type="number" id="quantity-input" min="1" value="1"/>
                     <button class="increment-btn" id="add">+</button>
-                    {#                    <div class="divider"></div>#}
-                    {#                    <button class="increment-btn" id="subtract" disabled>-</button>#}
-                    {#                    <input type="number" id="quantity-input" min="1" value="1"/>#}
-                    {#                    <button class="increment-btn" id="add">+</button>#}
-
                 </div>
                 <button
                         id="submit"
-                        data-i18n="Add to Cart"
+                        data-i18n="button.submit"
                         i18n-options='{ "total": "0" }'
                 ></button>
                 <p></p> {# TODO: use CSS for padding #}
@@ -55,7 +50,7 @@
             <div id="error-message"></div>
         </div>
     </div>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     {# TODO: Is there a better place to load script? #}
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     </body>
 {% endblock %}

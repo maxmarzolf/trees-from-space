@@ -36,7 +36,7 @@
                 </div>
                 <button
                         id="submit"
-                        data-i18n="Add to Cart"
+                        data-i18n="button.submit"
                         i18n-options='{ "total": "0" }'
                 ></button>
                 <p></p> {# TODO: use CSS for padding #}
@@ -44,5 +44,6 @@
             <div id="error-message"></div>
         </div>
     </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     </body>
 {% endblock %}

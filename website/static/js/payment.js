@@ -108,33 +108,6 @@ Array.from(document.getElementsByClassName('increment-btn')).forEach(
   }
 );
 
-/* Handle any errors returns from Checkout  */
-var handleResult = function (result) {
-  if (result.error) {
-    var displayError = document.getElementById('error-message');
-    displayError.textContent = result.error.message;
-  }
-};
-
-// Create a Checkout Session with the selected quantity
-var createCheckoutSession = function () {
-  var inputEl = document.getElementById('quantity-input');
-  var quantity = parseInt(inputEl.value);
-
-  return fetch('/create-checkout-session', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      quantity: quantity,
-      locale: i18next.language.toLowerCase().split('-')[0],
-    }),
-  }).then(function (result) {
-    return result.json();
-  });
-};
-
 /* Get your Stripe publishable key to initialize Stripe.js */
 fetch('/config')
   .then(function (result) {

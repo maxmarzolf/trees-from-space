@@ -10,7 +10,7 @@ i18next
       load: "languageOnly",
       backend: {
         // load from locales folder.
-        loadPath: "/locales/{{lng}}.json",
+        loadPath: "/static/locales/{{lng}}.json",
         crossDomain: false,
       },
     },

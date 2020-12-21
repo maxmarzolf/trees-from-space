@@ -21,7 +21,7 @@ stripe.api_key = stripe_keys["secret_key"]
 
 @payment.route('/config', methods=['GET'])
 def get_publishable_key():
-    price = stripe.Price.retrieve(os.getenv('PRICE'))
+    price = stripe.Price.retrieve(os.getenv('TEST_SMALL_SHIRT_PRICE'))
     return jsonify({
       'publicKey': os.getenv('STRIPE_PUBLISHABLE_KEY'),
       'unitAmount': price['unit_amount'],
@@ -38,7 +38,7 @@ def get_checkout_session():
 
 @payment.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
-    # data = json.loads(request.data)
+    data = json.loads(request.data)
     domain_url = "http://localhost:5000/"
     stripe.api_key = stripe_keys["secret_key"]
     try:
@@ -53,19 +53,25 @@ def create_checkout_session():
         checkout_session = stripe.checkout.Session.create(
             success_url=domain_url +
             "/success.html?session_id={CHECKOUT_SESSION_ID}",
-            cancel_url=domain_url + "/canceled.html",
+            cancel_url=domain_url + "/",
             payment_method_types=["card"],
             mode="payment",
             line_items=[
                 {
-                    "price": os.getenv('PRICE'),
-                    "quantity": 1
+                    "price": os.getenv('TEST_SMALL_SHIRT_PRICE'),
+                    "quantity": data['quantity']
                 }
             ]
         )
         return jsonify({'sessionId': checkout_session['id']})
     except Exception as e:
         return jsonify(error=str(e)), 403
+
+
+# @payment.route("/test", methods=['GET', 'POST'])
+# def get_size():
+#     select = request.form.get('size')
+#     return str(select)
 
 
 @payment.route('/webhook', methods=['POST'])

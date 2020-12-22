@@ -39,6 +39,12 @@ def get_checkout_session():
 @payment.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
     data = json.loads(request.data)
+    if data['size'] == '1':
+        size = os.getenv('TEST_SMALL_SHIRT_PRICE')
+    elif data['size'] == '2':
+        size = os.getenv('TEST_MEDIUM_SHIRT_PRICE')
+    elif data['size'] == '3':
+        size = os.getenv('TEST_LARGE_SHIRT_PRICE')
     domain_url = "http://localhost:5000/"
     stripe.api_key = stripe_keys["secret_key"]
     try:
@@ -58,7 +64,7 @@ def create_checkout_session():
             mode="payment",
             line_items=[
                 {
-                    "price": os.getenv('TEST_SMALL_SHIRT_PRICE'),
+                    "price": str(size),
                     "quantity": data['quantity']
                 }
             ]
@@ -66,12 +72,6 @@ def create_checkout_session():
         return jsonify({'sessionId': checkout_session['id']})
     except Exception as e:
         return jsonify(error=str(e)), 403
-
-
-# @payment.route("/test", methods=['GET', 'POST'])
-# def get_size():
-#     select = request.form.get('size')
-#     return str(select)
 
 
 @payment.route('/webhook', methods=['POST'])

@@ -28,8 +28,8 @@
                 </div>
                 <div class="quantity-setter">
                     <div class="sizes" style="width:138px;">
-                        <select name="size">
-                            <option value="0">Select Size</option>
+                        <select id="size">
+                            <option value="">Select Size</option>
                             <option value="1">Small</option>
                             <option value="2">Medium</option>
                             <option value="3">Large</option>
@@ -40,6 +40,8 @@
                     <input type="number" id="quantity-input" min="1" value="1"/>
                     <button class="increment-btn" id="add">+</button>
                 </div>
+                <div id="size-error">
+                </div>
                 <button
                         id="submit"
                         data-i18n="button.submit"
@@ -47,7 +49,6 @@
                 ></button>
                 <p></p> {# TODO: use CSS for padding #}
             </section>
-            <div id="error-message"></div>
         </div>
     </div>
     {# TODO: Is there a better place to load script? #}

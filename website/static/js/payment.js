@@ -87,7 +87,8 @@ var handleResult = function (result) {
 var createCheckoutSession = function () {
     var inputEl = document.getElementById('quantity-input');
     var quantity = parseInt(inputEl.value);
-
+    var availableSizes = document.getElementById("size");
+    var selectedSize = availableSizes.value;
     return fetch('/create-checkout-session', {
         method: 'POST',
         headers: {
@@ -96,6 +97,7 @@ var createCheckoutSession = function () {
         body: JSON.stringify({
             quantity: quantity,
             locale: i18next.language.toLowerCase().split('-')[0],
+            size: selectedSize,
         }),
     }).then(function (result) {
         return result.json();
@@ -103,31 +105,39 @@ var createCheckoutSession = function () {
 };
 
 Array.from(document.getElementsByClassName('increment-btn')).forEach(
-  (element) => {
-    element.addEventListener('click', updateQuantity);
-  }
+    (element) => {
+        element.addEventListener('click', updateQuantity);
+    }
 );
 
 /* Get your Stripe publishable key to initialize Stripe.js */
 fetch('/config')
-  .then(function (result) {
-    return result.json();
-  })
-  .then(function (json) {
-    window.config = json;
-    var stripe = Stripe(config.publicKey);
-    updateQuantity();
-    // Setup event handler to create a Checkout Session on submit
-    document.querySelector('#submit').addEventListener('click', function (evt) {
-      createCheckoutSession().then(function (data) {
-        stripe
-          .redirectToCheckout({
-            sessionId: data.sessionId,
-          })
-          .then(handleResult);
-      });
+    .then(function (result) {
+        return result.json();
+    })
+    .then(function (json) {
+        window.config = json;
+        var stripe = Stripe(config.publicKey);
+        updateQuantity();
+        // Setup event handler to create a Checkout Session on submit
+        document.querySelector('#submit').addEventListener('click', function (evt) {
+            evt.preventDefault();
+            var availableSizes = document.getElementById("size");
+            var selectedSize = availableSizes.value;
+            // TODO: check if available sizes is there
+            if (selectedSize.length < 1) {
+                document.getElementById('size-error').innerHTML = "Please Select a Size";
+                return;
+            }
+            createCheckoutSession().then(function (data) {
+                stripe
+                    .redirectToCheckout({
+                        sessionId: data.sessionId,
+                    })
+                    .then(handleResult);
+            });
+        });
     });
-  });
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var x, i, j, l, ll, selElmnt, a, b, c;
@@ -182,6 +192,7 @@ for (i = 0; i < l; i++) {
         closeAllSelect(this);
         this.nextSibling.classList.toggle("select-hide");
         this.classList.toggle("select-arrow-active");
+        document.getElementById('size-error').innerHTML = "";
     });
 }
 

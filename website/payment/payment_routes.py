@@ -5,11 +5,9 @@ from website.payment import payment
 from flask import Flask, render_template, jsonify, request, send_from_directory
 from dotenv import load_dotenv, find_dotenv
 
-
 # Setup Stripe python client library.
 load_dotenv(find_dotenv())
 # Ensure environment variables are set.
-price = os.getenv('PRICE')
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 stripe.api_version = os.getenv('STRIPE_API_VERSION')
 stripe_keys = {
@@ -23,10 +21,11 @@ stripe.api_key = stripe_keys["secret_key"]
 def get_publishable_key():
     price = stripe.Price.retrieve(os.getenv('TEST_SMALL_SHIRT_PRICE'))
     return jsonify({
-      'publicKey': os.getenv('STRIPE_PUBLISHABLE_KEY'),
-      'unitAmount': price['unit_amount'],
-      'currency': price['currency']
+        'publicKey': os.getenv('STRIPE_PUBLISHABLE_KEY'),
+        'unitAmount': price['unit_amount'],
+        'currency': price['currency']
     })
+
 
 # Fetch the Checkout Session to display the JSON result on the success page
 @payment.route('/checkout-session', methods=['GET'])
@@ -45,6 +44,7 @@ def create_checkout_session():
         size = os.getenv('TEST_MEDIUM_SHIRT_PRICE')
     elif data['size'] == '3':
         size = os.getenv('TEST_LARGE_SHIRT_PRICE')
+
     domain_url = "http://localhost:5000/"
     stripe.api_key = stripe_keys["secret_key"]
     try:
@@ -57,17 +57,20 @@ def create_checkout_session():
         # For full details see https:#stripe.com/docs/api/checkout/sessions/create
         # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
         checkout_session = stripe.checkout.Session.create(
-            success_url=domain_url +
-            "/success.html?session_id={CHECKOUT_SESSION_ID}",
+            success_url=domain_url + "/success.html?session_id={CHECKOUT_SESSION_ID}",
             cancel_url=domain_url + "/",
             payment_method_types=["card"],
             mode="payment",
             line_items=[
                 {
-                    "price": str(size),
-                    "quantity": data['quantity']
-                }
-            ]
+                    'price': size,
+                    'quantity': data['quantity'],
+                },
+                {
+                    'price': os.getenv('TEST_SHIPPING_PRICE'),
+                    'quantity': 1,
+                },
+            ],
         )
         return jsonify({'sessionId': checkout_session['id']})
     except Exception as e:

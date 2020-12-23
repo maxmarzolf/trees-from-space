@@ -3,15 +3,12 @@
 {% block content %}
     <head>
         <meta charset="utf-8"/>
-        <title data-i18n="title"></title>
-        <meta name="description" content="A demo of Stripe Payment Intents"/>
+        <title data-i18n="title">Trees from Space Decals</title>
+        <meta name="description" content="Trees from Space Decals"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link rel="icon" href="favicon.ico" type="image/x-icon"/>
         <link href="{{ url_for('static', filename='css/normalize.css') }}" rel="stylesheet">
         <link href="{{ url_for('static', filename='css/global.css') }}" rel="stylesheet">
-        <!-- Load Stripe.js on your website. -->
-        <script src="https://js.stripe.com/v3/"></script>
-        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+        <link href="{{ url_for('static', filename='css/layout.css') }}" rel="stylesheet">
         <!-- Load translation files and libraries. -->
         <script src="https://unpkg.com/i18next/i18next.js"></script>
         <script src="https://unpkg.com/i18next-xhr-backend/i18nextXHRBackend.js"></script>
@@ -19,7 +16,7 @@
         <script src="{{ url_for('static', filename='js/translation.js') }}"></script>
     </head>
     <body>
-    <div class="sr-root">
+    <div class="sr-root" style="margin-top: -25px"> {# TODO: figure out what's going on #}
         <div class="sr-main">
             <section class="container">
                 <div>

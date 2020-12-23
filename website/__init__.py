@@ -21,6 +21,6 @@ def create_app():
         app.register_blueprint(home)
         app.register_blueprint(about)
         app.register_blueprint(payment)
-        app.register_blueprint(free)
+#         app.register_blueprint(free)
         db.create_all()
         return app

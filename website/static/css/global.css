@@ -82,6 +82,8 @@ h4 {
 
 .sr-main {
     width: var(--form-width);
+    border-right: 2px solid #79fd94;
+    border-radius: 6px;
 }
 
 .sr-content {
@@ -539,9 +541,9 @@ pre {
     text-align: center;
 }
 
-.quantity-setter #sizes{
-  width: 150px;
-  text-align: center;
+.quantity-setter #sizes {
+    width: 150px;
+    text-align: center;
 }
 
 .quantity-setter .increment-btn {
@@ -629,63 +631,63 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .sizes {
-  position: relative;
-  font-family: Arial;
+    position: relative;
+    font-family: Arial;
 }
 
 .sizes select {
-  display: none; /*hide original SELECT element:*/
+    display: none; /*hide original SELECT element:*/
 }
 
 .select-selected {
-  background-color: white ;
+    background-color: white;
 }
 
 /*style the arrow inside the select element:*/
 .select-selected:after {
-  position: absolute;
-  content: "";
-  top: 14px;
-  right: 10px;
-  width: 0;
-  height: 0;
-  border: 6px solid transparent;
-  border-color: black transparent transparent transparent;
+    position: absolute;
+    content: "";
+    top: 14px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: black transparent transparent transparent;
 }
 
 /*point the arrow upwards when the select box is open (active):*/
 .select-selected.select-arrow-active:after {
-  border-color: transparent transparent #fff transparent;
-  top: 7px;
+    border-color: transparent transparent #fff transparent;
+    top: 7px;
 }
 
 /*style the items (options), including the selected item:*/
-.select-items div,.select-selected {
-  color: black;
-  padding: 8px 16px;
-  border: 2px solid transparent;
-  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-  cursor: pointer;
-  user-select: none;
+.select-items div, .select-selected {
+    color: black;
+    padding: 8px 16px;
+    border: 2px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+    user-select: none;
 }
 
 /*style items (options):*/
 .select-items {
-  position: absolute;
-  background-color: white;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 99;
+    position: absolute;
+    background-color: white;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
 }
 
 /*hide the items when the select box is closed:*/
 .select-hide {
-  display: none;
+    display: none;
 }
 
 .select-items div:hover, .same-as-selected {
-  background-color: white;
+    background-color: white;
     border-color: #79fd94;
     border-width: 2px;
 }

@@ -19,7 +19,7 @@ stripe.api_key = stripe_keys["secret_key"]
 
 @payment.route('/config', methods=['GET'])
 def get_publishable_key():
-    price = stripe.Price.retrieve(os.getenv('TEST_SMALL_SHIRT_PRICE'))
+    price = stripe.Price.retrieve(os.getenv('SMALL_SHIRT_PRICE'))
     return jsonify({
         'publicKey': os.getenv('STRIPE_PUBLISHABLE_KEY'),
         'unitAmount': price['unit_amount'],
@@ -39,13 +39,13 @@ def get_checkout_session():
 def create_checkout_session():
     data = json.loads(request.data)
     if data['size'] == '1':
-        size = os.getenv('TEST_SMALL_SHIRT_PRICE')
+        size = os.getenv('SMALL_SHIRT_PRICE')
     elif data['size'] == '2':
-        size = os.getenv('TEST_MEDIUM_SHIRT_PRICE')
+        size = os.getenv('MEDIUM_SHIRT_PRICE')
     elif data['size'] == '3':
-        size = os.getenv('TEST_LARGE_SHIRT_PRICE')
+        size = os.getenv('LARGE_SHIRT_PRICE')
 
-    domain_url = "http://localhost:5000/"
+    domain_url = "https://www.treesfromspace.com"
     stripe.api_key = stripe_keys["secret_key"]
     try:
         # Create new Checkout Session for the order
@@ -67,7 +67,7 @@ def create_checkout_session():
                     'quantity': data['quantity'],
                 },
                 {
-                    'price': os.getenv('TEST_SHIPPING_PRICE'),
+                    'price': os.getenv('SHIPPING_PRICE'),
                     'quantity': 1,
                 },
             ],

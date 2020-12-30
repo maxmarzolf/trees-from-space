@@ -52,8 +52,8 @@ def create_checkout_session():
             success_url=domain_url + "/success.html?session_id={CHECKOUT_SESSION_ID}",
             cancel_url=domain_url + "/",
             payment_method_types=["card"],
-            billing_address_collection='required',
-            customer_email='required',
+            # billing_address_collection='required',
+            # customer_email='required',
             mode="payment",
             line_items=[
                 {

@@ -49,11 +49,11 @@ def create_checkout_session():
     stripe.api_key = stripe_keys["secret_key"]
     try:
         checkout_session = stripe.checkout.Session.create(
-            # billing_address_collection='required',
-            # customer_email='required',
             success_url=domain_url + "/success.html?session_id={CHECKOUT_SESSION_ID}",
             cancel_url=domain_url + "/",
             payment_method_types=["card"],
+            billing_address_collection='required',
+            customer_email='required',
             mode="payment",
             line_items=[
                 {

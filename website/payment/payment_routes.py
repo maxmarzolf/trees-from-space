@@ -79,9 +79,7 @@ def create_checkout_session():
 
 @payment.route('/webhook', methods=['POST'])
 def webhook_received():
-    # You can use webhooks to receive information about asynchronous payment events.
-    # For more about our webhook events check out https://stripe.com/docs/webhooks.
-    webhook_secret = os.getenv('STRIPE_WEBHOOK_SECRET')
+    webhook_secret = os.getenv('STRIPE_ENDPOINT_SECRET')
     request_data = json.loads(request.data)
     if webhook_secret:
         # Retrieve the event by verifying the signature using the raw body and secret if webhook signing is configured.

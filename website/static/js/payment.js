@@ -126,7 +126,7 @@ fetch('/config')
             var selectedSize = availableSizes.value;
             // TODO: check if available sizes is there
             if (selectedSize.length < 1) {
-                document.getElementById('size-error').innerHTML = "Please Select a Size>";
+                document.getElementById('size-error').innerHTML = "Please Select a Size";
                 return;
             }
             createCheckoutSession().then(function (data) {

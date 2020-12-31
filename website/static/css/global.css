@@ -133,7 +133,7 @@ input[type="number"] {
     border: 1px solid var(--gray-border);
     border-radius: var(--radius);
     padding: 5px 12px;
-    height: 44px;
+    /*height: 44px;*/
     width: 100%;
     transition: box-shadow 0.2s ease;
     background: white;
@@ -641,13 +641,14 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .select-selected {
     background-color: white;
+    height: 100%;
 }
 
 /*style the arrow inside the select element:*/
 .select-selected:after {
     position: absolute;
     content: "";
-    top: 14px;
+    top: 22px;
     right: 10px;
     width: 0;
     height: 0;
@@ -664,7 +665,7 @@ input[type="number"]::-webkit-outer-spin-button {
 /*style the items (options), including the selected item:*/
 .select-items div, .select-selected {
     color: black;
-    padding: 8px 16px;
+    padding: 11px 16px;
     border: 2px solid transparent;
     border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
     cursor: pointer;
@@ -690,4 +691,13 @@ input[type="number"]::-webkit-outer-spin-button {
     background-color: white;
     border-color: #79fd94;
     border-width: 2px;
+}
+
+.nav-link {
+    color: white !important;
+    text-align: right !important;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
 }

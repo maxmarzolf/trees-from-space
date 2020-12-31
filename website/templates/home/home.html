@@ -6,9 +6,6 @@
         <title data-i18n="title">Trees from Space home</title>
         <meta name="description" content="Trees from Space homepage"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link href="{{ url_for('static', filename='css/normalize.css') }}" rel="stylesheet">
-        <link href="{{ url_for('static', filename='css/global.css') }}" rel="stylesheet">
-        <link href="{{ url_for('static', filename='css/layout.css') }}" rel="stylesheet">
         <!-- Load translation files and libraries. -->
         <script src="https://unpkg.com/i18next/i18next.js"></script>
         <script src="https://unpkg.com/i18next-xhr-backend/i18nextXHRBackend.js"></script>
@@ -18,11 +15,39 @@
     <body>
     <div class="sr-root">
         <div class="sr-main">
-            <section class="container">
-                <div>
-                    <h3 data-i18n="Trees from Space Shirt"></h3>
+            <section class="container p-0">
+                <div class="card" style="background-color:inherit;">
+                    <img class="card-img-top" src="{{ url_for('static', filename='images/shirt.jpg') }}" alt="Trees from Space shirt">
+                    <div class="card-body p-2">
+                        <div class="quantity-setter">
+                            <div class="sizes" style="width:138px;">
+                                <select id="size">
+                                    <option value="">Select Size</option>
+                                    <option value="1">Small</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Large</option>
+                                </select>
+                            </div>
+                            <div class="divider"></div>
+                            <button class="increment-btn" id="subtract" disabled>-</button>
+                            <input type="text" id="quantity-input" min="1" value="1"/>
+                            <button class="increment-btn" id="add">+</button>
+                        </div>
+                        <div id="size-error">
+                        </div>
+                        <button
+                                id="submit"
+                                data-i18n="button.submit"
+                                i18n-options='{ "total": "0" }'
+                                class="w-100"
+                        ></button>
+                    </div>
+                </div>
+
+                <!--<div>
+                    <p class="text-white h5" data-i18n="Trees from Space Shirt"></p>
                     <div class="pasha-image">
-                        <img src="{{ url_for('static', filename='images/shirt.jpg') }}"
+                        <img class="img-fluid w-100" src="{{ url_for('static', filename='images/shirt.jpg') }}"
                              alt="Trees from Space shirt">
                     </div>
                 </div>
@@ -47,7 +72,7 @@
                         data-i18n="button.submit"
                         i18n-options='{ "total": "0" }'
                 ></button>
-                <p></p> {# TODO: use CSS for padding #}
+                <p></p> {# TODO: use CSS for padding #}-->
             </section>
         </div>
     </div>

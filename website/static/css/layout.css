@@ -1,4 +1,9 @@
+html {
+    height: 100%;
+}
+
 body {
+    height: 100%;
     background-color: black;
 }
 
@@ -24,13 +29,21 @@ body {
 }
 
 footer {
-    position: fixed;
+    position: relative;
     width: 100%;
     height: 27px;
 }
 
-.fixed-bottom {
-    position: fixed;
+.fixed-bottom-1 {
+    position: relative;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.fixed-bottom-2 {
+    position: absolute;
     right: 0;
     bottom: 0;
     left: 0;
@@ -95,8 +108,4 @@ footer {
     color: red;
     text-align: center;
     padding-top: 10pt;
-}
-
-.footer {
-    bottom: 5pt;
 }

@@ -96,3 +96,7 @@ footer {
     text-align: center;
     padding-top: 10pt;
 }
+
+.footer {
+    bottom: 5pt;
+}

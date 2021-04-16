@@ -6,13 +6,6 @@ import stripe
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
-stripe_keys = {
-    "secret_key": os.environ["STRIPE_SECRET_KEY"],
-    "publishable_key": os.environ["STRIPE_PUBLISHABLE_KEY"],
-    "endpoint_secret": os.environ["STRIPE_ENDPOINT_SECRET"]
-}
-stripe.api_key = stripe_keys["secret_key"]
-
 
 class Configuration:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -24,9 +17,22 @@ class Development(Configuration):
     DEBUG = True
     TESTING = True
 
+    test_stripe_keys = {
+        "secret_key": os.environ["TEST_STRIPE_SECRET_KEY"],
+        "publishable_key": os.environ["TEST_STRIPE_PUBLISHABLE_KEY"],
+        "endpoint_secret": os.environ["TEST_STRIPE_ENDPOINT_SECRET"]
+    }
+
 
 class Production(Configuration):
     # TODO create production database uri
     SQLALCHEMY_DATABASE_URI = os.environ.get("PRODUCTION_DATABASE_URI")
     DEBUG = False
     TESTING = False
+
+    stripe_keys = {
+        "secret_key": os.environ["STRIPE_SECRET_KEY"],
+        "publishable_key": os.environ["STRIPE_PUBLISHABLE_KEY"],
+        "endpoint_secret": os.environ["STRIPE_ENDPOINT_SECRET"]
+    }
+    stripe.api_key = stripe_keys["secret_key"]

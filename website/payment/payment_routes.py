@@ -1,20 +1,21 @@
-import stripe
 import json
 import os
+
+from config import Development, Production
 from website.payment import payment
+
+import stripe
 from flask import Flask, render_template, jsonify, request, send_from_directory
 from dotenv import load_dotenv, find_dotenv
 
-# Setup Stripe python client library.
+
 load_dotenv(find_dotenv())
-# Ensure environment variables are set.
-stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 stripe.api_version = os.getenv('STRIPE_API_VERSION')
-stripe_keys = {
-    "secret_key": os.environ["STRIPE_SECRET_KEY"],
-    "publishable_key": os.environ["STRIPE_PUBLISHABLE_KEY"],
-}
-stripe.api_key = stripe_keys["secret_key"]
+
+
+def get_key():
+    stripe.api_key = Development.test_stripe_keys['secret_key']
+    return stripe.api_key
 
 
 @payment.route('/config', methods=['GET'])
@@ -46,7 +47,7 @@ def create_checkout_session():
         size = os.getenv('LARGE_SHIRT_PRICE')
 
     domain_url = "https://www.treesfromspace.com"
-    stripe.api_key = stripe_keys["secret_key"]
+    stripe.api_key = get_key()
     try:
         checkout_session = stripe.checkout.Session.create(
             success_url=domain_url + "/success.html?session_id={CHECKOUT_SESSION_ID}",

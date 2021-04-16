@@ -7,12 +7,7 @@ dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
 
-class Configuration:
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-    USE_SESSION_FOR_NEXT = True
-
-
-class Development(Configuration):
+class Development:
     SQLALCHEMY_DATABASE_URI = os.environ.get("DEVELOPMENT_DATABASE_URI")
     DEBUG = True
     TESTING = True
@@ -24,7 +19,7 @@ class Development(Configuration):
     }
 
 
-class Production(Configuration):
+class Production:
     # TODO create production database uri
     SQLALCHEMY_DATABASE_URI = os.environ.get("PRODUCTION_DATABASE_URI")
     DEBUG = False

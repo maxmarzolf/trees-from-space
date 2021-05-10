@@ -7,16 +7,16 @@ dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
 
-class Development:
-    # SQLALCHEMY_DATABASE_URI = os.environ.get("DEVELOPMENT_DATABASE_URI")
-    DEBUG = True
-    TESTING = False
-
-    test_stripe_keys = {
-        "secret_key": os.environ["TEST_STRIPE_SECRET_KEY"],
-        "publishable_key": os.environ["TEST_STRIPE_PUBLISHABLE_KEY"],
-        "endpoint_secret": os.environ["TEST_STRIPE_ENDPOINT_SECRET"]
-    }
+# class Development:
+#     # SQLALCHEMY_DATABASE_URI = os.environ.get("DEVELOPMENT_DATABASE_URI")
+#     DEBUG = True
+#     TESTING = False
+#
+#     test_stripe_keys = {
+#         "secret_key": os.environ["TEST_STRIPE_SECRET_KEY"],
+#         "publishable_key": os.environ["TEST_STRIPE_PUBLISHABLE_KEY"],
+#         "endpoint_secret": os.environ["TEST_STRIPE_ENDPOINT_SECRET"]
+#     }
 
 
 class Production:

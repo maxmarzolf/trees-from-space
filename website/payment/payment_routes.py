@@ -19,6 +19,16 @@ def get_key():
     return stripe.api_key
 
 
+@payment.route("/success")
+def success():
+    return render_template("payment/success.html")
+
+
+@payment.route("/cancelled")
+def cancelled():
+    return render_template("payment/cancelled.html")
+
+
 @payment.route('/config', methods=['GET'])
 def get_publishable_key():
     price = stripe.Price.retrieve(os.getenv('SMALL_SHIRT_PRICE'))

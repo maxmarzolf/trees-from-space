@@ -12,7 +12,6 @@ from website.free.free_routes import free
 
 # from website import models
 
-PRODUCTION = False
 
 def create_app():
     app = Flask(__name__)
@@ -22,10 +21,8 @@ def create_app():
     with app.app_context():
         app.register_blueprint(home)
         app.register_blueprint(about)
-        if PRODUCTION:
-            app.register_blueprint(payment)
-        else:
-            app.register_blueprint(test_payment)
+        app.register_blueprint(payment)
+        # app.register_blueprint(test_payment)
 #         app.register_blueprint(free)
 #         db.create_all()
         return app

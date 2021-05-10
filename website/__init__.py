@@ -21,8 +21,8 @@ def create_app():
     with app.app_context():
         app.register_blueprint(home)
         app.register_blueprint(about)
-        # app.register_blueprint(payment)
-        app.register_blueprint(test_payment)
+        app.register_blueprint(payment)
+        # app.register_blueprint(test_payment)
 #         app.register_blueprint(free)
 #         db.create_all()
         return app

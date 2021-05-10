@@ -1,7 +1,7 @@
 import json
 import os
 
-from config import Development
+# from config import Development
 from website.payment import test_payment
 
 import stripe
@@ -11,7 +11,7 @@ from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
 stripe.api_version = os.getenv('STRIPE_API_VERSION')
-stripe.api_key = Development.test_stripe_keys['secret_key']
+# stripe.api_key = Development.test_stripe_keys['secret_key']
 
 
 @test_payment.route("/success")

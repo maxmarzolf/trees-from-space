@@ -10,7 +10,7 @@ from dotenv import load_dotenv, find_dotenv
 
 
 load_dotenv(find_dotenv())
-stripe.api_version = os.getenv('STRIPE_API_VERSION')
+# stripe.api_version = os.getenv('STRIPE_API_VERSION')
 stripe.api_key = Production.stripe_keys['secret_key']
 
 

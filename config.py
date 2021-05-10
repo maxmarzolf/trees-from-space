@@ -8,9 +8,9 @@ load_dotenv(dotenv_path)
 
 
 class Development:
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DEVELOPMENT_DATABASE_URI")
+    # SQLALCHEMY_DATABASE_URI = os.environ.get("DEVELOPMENT_DATABASE_URI")
     DEBUG = True
-    TESTING = True
+    TESTING = False
 
     test_stripe_keys = {
         "secret_key": os.environ["TEST_STRIPE_SECRET_KEY"],
@@ -20,8 +20,7 @@ class Development:
 
 
 class Production:
-    # TODO create production database uri
-    SQLALCHEMY_DATABASE_URI = os.environ.get("PRODUCTION_DATABASE_URI")
+    # SQLALCHEMY_DATABASE_URI = os.environ.get("PRODUCTION_DATABASE_URI")
     DEBUG = False
     TESTING = False
 

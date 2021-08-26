@@ -3,6 +3,6 @@
 </p>
 <br>
 <p align="center">
-[Trees from Space](https://www.treesfromspace.com/)
-My website built with Flask. Buy a shirt and be the coolest person anywhere. 
+<a href="https://www.treesfromspace.com/">Trees from Space</a>
+my website built with Flask. Buy a shirt and be the coolest person anywhere. 
 </p>

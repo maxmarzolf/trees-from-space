@@ -1,22 +1,4 @@
-<h1>Trees from Space</h1>
-<br>
-<br>
-<b>Landing page</b>
-<br>
-<div align="center">
-   <img src = "website/static/images/readme/first.png">
-</div>
-<br>
-<br>
-<b>Select size and quantity</b>
-<br>
-<div align="center">
-   <img src = "website/static/images/readme/second.png">
-</div>
-<br>
-<br>
-<b>Redirect to secure checkout</b>
-<br>
-<div align="center">
-   <img src = "website/static/images/readme/third.png">
-</div>
+<p align="center">
+  <img src="https://github.com/maxmarzolf/trees-from-space/blob/main/logo.png" alt="Trees from Space logo" title="Trees from Space"/>
+</p>
+A website built with Flask. Buy a shirt and be the coolest person anywhere. 
